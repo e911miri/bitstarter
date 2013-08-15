@@ -4,12 +4,16 @@ var fs = require('fs');
 var app = express.createServer(express.logger());
 
 app.get('/', function(request, response) {
-	var data = fs.readFileSync('index.html', 'utf8');
-	buffer = new Buffer(data);
-	response.send(buffer.toString());
+	var html = fs.readFileSync('index.html').toString();
+	response.send(html);
+});
+app.get('/social-buttons.css', function(request, response) {
+	var css = fs.readFileSync('social-buttons.css').toString();
+	response.setHeader("Content-Type", "text/css");
+	response.send(css);
 });
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 8080;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });
